@@ -1,0 +1,21 @@
+@startuml
+actor user
+
+card "Server" {
+    card "telegram-bot" as tg_bot{
+    }
+    card "classification model" as model {
+    }
+}
+
+card "Telegram" {
+    card "chat" as tg_chat {
+    }
+}
+
+user <-> tg_chat: message
+tg_chat <--> tg_bot : message
+model <- tg_bot: message
+model -> tg_bot: message class
+
+@enduml
