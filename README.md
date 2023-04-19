@@ -5,6 +5,7 @@ Developed by students of the [Simulator ML (Karpov.Courses)](https://karpov.cour
 <summary>Repository structure</summary>
 
 * `docs/` - project documentation folder.
+* `exploration/` - research files.
 * `src/` - application source folder.
      * `app/` - telegram bot files
      * `metric/` - files for evaluating the quality of models
