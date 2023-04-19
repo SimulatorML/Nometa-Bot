@@ -43,7 +43,7 @@ def parse_nometa_questions(path_to_file: str):
 
 if __name__ == '__main__':
     # Путь до экспортированного чата (json)
-    path_to_export_chat = '/home/user/Загрузки/Telegram Desktop/ChatExport_2023-04-19/result.json'
+    path_to_export_chat = 'path/to/result.json'
 
     messages_with_nometa = parse_nometa_questions(path_to_export_chat)
     messages_with_nometa.to_csv('messages_with_nometa.csv')
