@@ -6,8 +6,8 @@ from typing import List
 import pandas as pd
 from telethon import TelegramClient
 
-API_ID = os.getenv("API_ID")
-API_HASH = os.getenv("API_HASH")
+API_ID = os.getenv("API_ID") # YOUR API_ID FROM https://my.telegram.org/apps
+API_HASH = os.getenv("API_HASH") # YOUR API_HASH FROM https://my.telegram.org/apps
 
 
 def find_nometa_replies(data: dict):
