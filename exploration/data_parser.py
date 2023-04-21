@@ -6,7 +6,6 @@ from typing import List
 import pandas as pd
 from telethon import TelegramClient
 
-
 API_ID = os.getenv("API_ID")
 API_HASH = os.getenv("API_HASH")
 
@@ -50,14 +49,19 @@ def parse_json(source: List[str] = None, path: str = 'data.csv'):
         exctract_nometa(data, ids, path=f"{file}_{path}")
 
 
-async def parse_api(source: List[str], api_id: int, api_hash=str, path: str = "data.csv"):
+async def parse_api(source: List[str],
+                    api_id: int,
+                    api_hash=str,
+                    path: str = "data.csv",
+                    word: str = "nometa",
+                    limit: int = 10000000):
     """Parses data from telegram chats using TG API"""
     meta_messages_ids = []
     meta_messages = []
     async with TelegramClient('my', api_id, api_hash) as client:
         i = 0
         for chat in source:
-            all_message = await client.get_messages(chat, search='nometa', limit=1000000)
+            all_message = await client.get_messages(chat, search=word, limit=limit)
             for message in all_message:
                 if 'nometa' in message.message:
                     try:
