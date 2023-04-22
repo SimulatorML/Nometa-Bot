@@ -65,7 +65,7 @@ async def check_message(message: types.Message):
     В групповом чате отвечает только на мета-вопросы.
     """
     if message.chat.type == 'private':
-        if '?' not in message:
+        if '?' not in message.text:
             await message.reply('Это не вопрос.')
         elif is_meta_question(message.text):
             await message.reply('Это мета-вопрос.')
