@@ -5,3 +5,4 @@ joblib~=1.2.0
 matplotlib~=3.7.1
 seaborn~=0.12.2
 telethon~=1.28.5
+aiogram==2.25.1
