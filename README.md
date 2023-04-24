@@ -5,11 +5,12 @@ Developed by students of the [Simulator ML (Karpov.Courses)](https://karpov.cour
 <summary>Repository structure</summary>
 
 * `docs/` - project documentation folder
-* `src/` - application source folder
 * `exploration/` - data mining folder
+* `src/` - application source folder
      * `app/` - telegram bot files
      * `metric/` - files for evaluating the quality of models
      * `models/` - folder with training scripts and inference
+     * `utils/` - folder with util functions and variables
 * `test/` - application tests (pytest)
 
 </details>
