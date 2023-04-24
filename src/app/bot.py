@@ -2,7 +2,7 @@ import os
 from aiogram import Bot, types
 from aiogram.dispatcher import Dispatcher
 from aiogram.utils import executor
-from utils import GROUP_MESSAGE, is_meta_question
+from src.utils import GROUP_MESSAGE, is_meta_question
 
 
 BOT_TOKEN = os.getenv("BOT_TOKEN") #YOUR BOT_TOKEN FROM @BotFather
