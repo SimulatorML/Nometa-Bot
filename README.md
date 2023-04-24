@@ -6,6 +6,9 @@ Developed by students of the [Simulator ML (Karpov.Courses)](https://karpov.cour
 
 * `docs/` - project documentation folder
 * `src/` - application source folder
+* `data/` - data files
+     * `raw/` - raw data
+     * `processed` - data after processing
 * `exploration/` - data mining folder
      * `app/` - telegram bot files
      * `metric/` - files for evaluating the quality of models
