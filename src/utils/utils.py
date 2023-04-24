@@ -1,18 +1,9 @@
-"""Здесь хранятся дополнительные переменные и функции для работы бота."""
+from typing import List
+from util_variables import patterns_meta_questions
 
 
-patterns_meta_questions = [
-    'здесь кто-нибудь работал с',
-    'кто-нибудь разбирается в',
-    'можно задать вопрос про',
-    'кто проходил курс',
-    'кто шарит за',
-    'кто юзал',
-    'можно задать вопрос',
-]
 
-
-def is_meta_question(message: str) -> bool:
+def is_meta_question(message: str, templates: List[str]) -> bool:
     """
     Функция проверяет, является ли сообщение мета-вопросом.
 
@@ -28,7 +19,7 @@ def is_meta_question(message: str) -> bool:
         False, если сообщение - обычный вопрос.
     """
     message = message.lower()
-    for meta_question in patterns_meta_questions:
+    for meta_question in templates:
         if meta_question in message:
             return True
     return False
