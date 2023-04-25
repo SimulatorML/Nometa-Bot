@@ -71,10 +71,10 @@ if __name__ == '__main__':
 
     # Validation of the model with the calculation of metrics
     # and the formation of confusions matrix
-    validate_model(feature, target, test_size=0.2)
+    # validate_model(feature, target, test_size=0.2)
 
     # Model training on all data
-    train_model(feature, target)
+    # train_model(feature, target)
 
     # Getting a Prediction from the Model
     message = 'Кто может помочь с pandas?'

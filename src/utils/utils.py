@@ -1,9 +1,8 @@
-from typing import List
-from src.utils.constants import patterns_meta_questions
+from src.app.constants import PATTERNS_META_QUESTIONS
+from src.models.tfidf_text_classifier.model import TfidfTextClassifier
 
 
-
-def is_meta_question(message: str, templates: List[str]) -> bool:
+def pattern_checking(message: str) -> bool:
     """
     Функция проверяет, является ли сообщение мета-вопросом.
 
@@ -19,7 +18,21 @@ def is_meta_question(message: str, templates: List[str]) -> bool:
         False, если сообщение - обычный вопрос.
     """
     message = message.lower()
-    for meta_question in templates:
+    for meta_question in PATTERNS_META_QUESTIONS:
         if meta_question in message:
             return True
     return False
+
+
+def checking_tfidf_model(message: str) -> bool:
+    """
+    TODO: add descrp
+    """
+    model = TfidfTextClassifier()
+    model.load_model(
+        '../src/models/tfidf_text_classifier/artifacts/model.pkl',
+        '../src/models/tfidf_text_classifier/artifacts/vectorizer.pkl'
+    )
+    prediction = model.predict(message)
+
+    return bool(prediction)
