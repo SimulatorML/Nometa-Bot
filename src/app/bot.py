@@ -2,7 +2,7 @@ import os
 from aiogram import Bot, types
 from aiogram.dispatcher import Dispatcher
 from aiogram.utils import executor
-from utils import GROUP_MESSAGE, is_meta_question
+from src.utils import GROUP_MESSAGE, is_meta_question, patterns_meta_questions
 
 
 BOT_TOKEN = os.getenv("BOT_TOKEN") #YOUR BOT_TOKEN FROM @BotFather
@@ -23,12 +23,12 @@ async def check_message(message: types.Message):
     if message.chat.type == 'private':
         if '?' not in message.text:
             await message.reply('Это не вопрос.')
-        elif is_meta_question(message.text):
+        elif is_meta_question(message.text, patterns_meta_questions):
             await message.reply('Это мета-вопрос.')
         else:
             await message.reply('Это обычный вопрос.')
     elif message.chat.type == 'group':
-        if is_meta_question(message.text):
+        if is_meta_question(message.text, patterns_meta_questions):
             await message.reply(GROUP_MESSAGE, parse_mode='html')
 
 
