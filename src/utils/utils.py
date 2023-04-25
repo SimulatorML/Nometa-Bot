@@ -1,5 +1,5 @@
 from typing import List
-from util_variables import patterns_meta_questions
+from src.utils.constants import patterns_meta_questions
 
 
 
