@@ -1,10 +1,7 @@
 from src.models.tfidf_text_classifier.model import TfidfTextClassifier
 import pandas as pd
 from sklearn.model_selection import train_test_split
-from src.metrics import recall_at_precision, recall_at_specificity
-from sklearn.metrics import confusion_matrix
-import seaborn as sns
-import matplotlib.pyplot as plt
+from src.metrics import MetricsCalculator
 
 import logging
 
@@ -42,17 +39,15 @@ def validate_model(feature: pd.Series,
         result = model.predict(message)
         predictions.append(result)
 
-    rec_at_pre = recall_at_precision(y_test, predictions)
-    rec_at_spec = recall_at_specificity(y_test, predictions)
+    metric = MetricsCalculator()
+
+    rec_at_pre = metric.recall_at_precision(y_test, predictions)
+    rec_at_spec = metric.recall_at_specificity(y_test, predictions)
 
     logger.info(f"recall_at_precision : {rec_at_pre}")
     logger.info(f"recall_at_specificity : {rec_at_spec}")
 
-    cm = confusion_matrix(y_test, predictions)
-    sns.heatmap(cm, annot=True, cmap='Blues', fmt='g')
-    plt.xlabel('Predicted')
-    plt.ylabel('Actual')
-    plt.show()
+    metric.construction_confusion_matrix(y_test, predictions)
 
 
 def predict_with_trained_model(message: str,
