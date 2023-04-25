@@ -13,8 +13,8 @@ class TfidfTextClassifier:
     for model training, saving and loading the model, and making predictions.
     """
 
-    def __init__(self):
-        self.clf = LogisticRegression()
+    def __init__(self, estimator=LogisticRegression()):
+        self.clf = estimator
         self.vectorizer = TfidfVectorizer(ngram_range=(2, 3))
         self.pipeline = Pipeline(
             [('tfidf', self.vectorizer), ('clf', self.clf)])
