@@ -25,6 +25,8 @@ class TfidfTextClassifier:
         the model using the LogisticRegression algorithm.
         """
         feature = feature.astype('U').apply(self._preprocess_text)
+        target = target.astype('int')
+
         self.pipeline.fit(feature, target)
 
     def predict(self, text: str) -> int:
@@ -35,7 +37,8 @@ class TfidfTextClassifier:
         text = self._preprocess_text(text)
         text = self.vectorizer.transform([text])
         label = self.clf.predict(text)
-        return label[0]
+        predict = int(label[0])
+        return predict
 
     @staticmethod
     def _preprocess_text(text: str) -> str:
@@ -67,18 +70,3 @@ class TfidfTextClassifier:
         self.vectorizer = joblib.load(path_to_vectorizer)
         self.pipeline = Pipeline(
             [('tfidf', self.vectorizer), ('clf', self.clf)])
-
-
-if __name__ == '__main__':
-    df = pd.read_csv('questions.csv')
-
-    model = TfidfTextClassifier()
-    model.fit(df['text'], df['label'])
-
-    # save the model to a file
-    model.save_model()
-    # загружаем модель из файла и делаем предсказание
-    model.load_model()
-
-    prediction = model.predict('Кто может помочь с pandas?')
-    print(prediction)
