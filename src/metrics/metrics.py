@@ -31,8 +31,8 @@ class MetricsCalculator:
             true_labels, pred_scores, min_precision
         )
 
-        logger.info(f"recall@spec {min_precision * 100}% : {rec_at_pre}")
-        logger.info(f"recall@spec {min_precision * 100}% : {rec_at_spec}")
+        logger.info(f"recall@precision {min_precision * 100}% : {rec_at_pre}")
+        logger.info(f"recall@specificity {min_precision * 100}% : {rec_at_spec}")
 
         self.construction_confusion_matrix(true_labels, pred_scores)
 
