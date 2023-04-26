@@ -8,11 +8,9 @@ RUN apt update && \
     pip install --upgrade pip \
     && pip install -r requirements.txt
 
-WORKDIR nometa_bot
-
 COPY /src ./src
 COPY /static ./static
 
-ENV PYTHONPATH "${PYTHONPATH}:/nometa_bot/src"
+ENV PYTHONPATH "${PYTHONPATH}:/src"
 
 CMD ["python", "static/start_bot.py"]
