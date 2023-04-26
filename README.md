@@ -7,10 +7,10 @@ Developed by students of the [Simulator ML (Karpov.Courses)](https://karpov.cour
 * `deployment/` - docker application deployment files
 * `docs/` - project documentation folder
 * `exploration/` - data mining folder
-* `static` - scripts to launch components
+* `static/` - scripts to launch components
 * `src/` - application source folder
      * `app/` - telegram bot files
-     * `metric/` - files for evaluating the quality of models
+     * `metrics/` - files for evaluating the quality of models
      * `models/` - folder with training scripts and inference
      * `utils/` - folder with util functions and variables
 * `test/` - application tests (pytest)

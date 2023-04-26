@@ -2,7 +2,7 @@ from src.app.constants import PATTERNS_META_QUESTIONS
 from src.models.tfidf_text_classifier.model import TfidfTextClassifier
 
 
-def pattern_checking(message: str) -> bool:
+def сheck_question_pattern(message: str) -> bool:
     """
     Функция проверяет, является ли сообщение мета-вопросом.
 
@@ -24,7 +24,7 @@ def pattern_checking(message: str) -> bool:
     return False
 
 
-def checking_tfidf_model(message: str) -> bool:
+def сheck_question_by_tfidf_model(message: str) -> bool:
     """
     TODO: add descrp
     """
