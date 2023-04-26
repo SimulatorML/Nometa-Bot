@@ -2,6 +2,7 @@ from typing import Any
 from typing import Tuple
 
 import numpy as np
+import logging
 
 from sklearn.metrics import (
     precision_recall_curve,
@@ -13,8 +14,28 @@ from sklearn.metrics import (
 import seaborn as sns
 import matplotlib.pyplot as plt
 
+logging.basicConfig(level=logging.INFO)
+logger = logging.getLogger('MetricsCalculator')
+
 
 class MetricsCalculator:
+
+    def get_metrics(self,
+                    true_labels: np.ndarray,
+                    pred_scores: np.ndarray,
+                    min_precision: float = 0.95):
+        rec_at_pre = self.recall_at_precision(
+            true_labels, pred_scores, min_precision
+        )
+        rec_at_spec = self.recall_at_specificity(
+            true_labels, pred_scores, min_precision
+        )
+
+        logger.info(f"recall@spec {min_precision * 100}% : {rec_at_pre}")
+        logger.info(f"recall@spec {min_precision * 100}% : {rec_at_spec}")
+
+        self.construction_confusion_matrix(true_labels, pred_scores)
+
     @staticmethod
     def recall_at_precision(
             true_labels: np.ndarray,

@@ -40,14 +40,7 @@ def validate_model(feature: pd.Series,
         predictions.append(result)
 
     metric = MetricsCalculator()
-
-    rec_at_pre = metric.recall_at_precision(y_test, predictions)
-    rec_at_spec = metric.recall_at_specificity(y_test, predictions)
-
-    logger.info(f"recall_at_precision : {rec_at_pre}")
-    logger.info(f"recall_at_specificity : {rec_at_spec}")
-
-    metric.construction_confusion_matrix(y_test, predictions)
+    metric.get_metrics(y_test, predictions)
 
 
 def predict_with_trained_model(message: str,
@@ -71,7 +64,7 @@ if __name__ == '__main__':
 
     # Validation of the model with the calculation of metrics
     # and the formation of confusions matrix
-    # validate_model(feature, target, test_size=0.2)
+    validate_model(feature, target, test_size=0.2)
 
     # Model training on all data
     # train_model(feature, target)
