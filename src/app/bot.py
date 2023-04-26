@@ -2,12 +2,20 @@ import os
 from aiogram import Bot, types
 from aiogram.dispatcher import Dispatcher
 from aiogram.utils import executor
-from utils import GROUP_MESSAGE, is_meta_question
+from src.utils import сheck_question_pattern, сheck_question_by_tfidf_model
+from src.app.constants import GROUP_MESSAGE
 
-
-BOT_TOKEN = os.getenv("BOT_TOKEN") #YOUR BOT_TOKEN FROM @BotFather
+BOT_TOKEN = os.getenv("BOT_TOKEN")  # YOUR BOT_TOKEN FROM @BotFather
 bot = Bot(token=BOT_TOKEN)
 dp = Dispatcher(bot)
+
+# TODO: Temporary fix. Swap to select question definition type
+message_check = сheck_question_by_tfidf_model  # checking_tfidf_model, pattern_checking
+
+
+class BotMetaMessageChecker:
+    def start(self):
+        executor.start_polling(dp, skip_updates=True)
 
 
 @dp.message_handler()
@@ -23,14 +31,10 @@ async def check_message(message: types.Message):
     if message.chat.type == 'private':
         if '?' not in message.text:
             await message.reply('Это не вопрос.')
-        elif is_meta_question(message.text):
+        elif message_check(message.text):
             await message.reply('Это мета-вопрос.')
         else:
             await message.reply('Это обычный вопрос.')
     elif message.chat.type == 'group':
-        if is_meta_question(message.text):
+        if message_check(message.text):
             await message.reply(GROUP_MESSAGE, parse_mode='html')
-
-
-if __name__ == '__main__':
-    executor.start_polling(dp, skip_updates=True)
