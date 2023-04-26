@@ -1,1 +1,1 @@
-from models.tfidf_text_classifier.model import TfidfTextClassifier
+from tfidf_text_classifier.model import TfidfTextClassifier
