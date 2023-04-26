@@ -4,6 +4,7 @@ Developed by students of the [Simulator ML (Karpov.Courses)](https://karpov.cour
 <details open>
 <summary>Repository structure</summary>
 
+* `deployment/` - docker application deployment files
 * `docs/` - project documentation folder
 * `exploration/` - data mining folder
 * `static` - scripts to launch components
@@ -16,14 +17,40 @@ Developed by students of the [Simulator ML (Karpov.Courses)](https://karpov.cour
 
 </details>
 
-<details open>
-<summary>Install</summary>
+### Launch
 
-Python version: 3.8
-```bash
-pip install -r requirements.txt
-```
+1) `git clone https://github.com/uberkinder/Nometa-Bot.git`
+2) Create a telegram bot and get a token through https://t.me/BotFather
+
+Choose a launch option and continue with the steps
+<details open>
+<summary>Local</summary>
+
+3) install python version: 3.8
+4) ```pip install -r requirements.txt```
+
+5) Add a variable to your environment on ...
+
+    linux: `export BOT_TOKEN=<your_token>`
+    
+    windows (cmd): `setx BOT_TOKEN "<your_token>"`
+
+6) run `python static/start_bot.py`
+
 </details>
+
+<details open>
+<summary>Docker</summary>
+
+from the root of the repository run the commands
+3) `docker build -t nometa_bot -f deployment/Dockerfile .`
+4) `docker run -e BOT_TOKEN=<your_token> -p 8080:8080 nometa_bot`
+</details>
+
+After launching the bot, add it to the chat and allow it to read messages
+
+
+
 
 
 
