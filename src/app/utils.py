@@ -26,7 +26,7 @@ def сheck_question_pattern(message: str) -> bool:
 
 def сheck_question_with_tfidf_model(message: str) -> bool:
     """
-    TODO: add descrp
+    TODO: add descriptions
     """
     model = TfidfTextClassifier()
     model.load_model(
