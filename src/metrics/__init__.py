@@ -1,1 +1,1 @@
-from .metrics import MetricsCalculator
+from .metrics import Metrics

@@ -1,7 +1,7 @@
 from src.models.tfidf_text_classifier.model import TfidfTextClassifier
 import pandas as pd
 from sklearn.model_selection import train_test_split
-from src.metrics import MetricsCalculator
+from src.metrics import Metrics
 
 import logging
 
@@ -34,13 +34,17 @@ def validate_model(feature: pd.Series,
     model.fit(X_train, y_train)
 
     predictions = []
+    probabilities = []
     for idx in range(len(X_test)):
         message = X_test.iloc[idx]
-        result = model.predict(message)
-        predictions.append(result)
+        predict = model.predict(message)
+        prob = model.predict_proba(message)
 
-    metric = MetricsCalculator()
-    metric.get_metrics(y_test, predictions)
+        predictions.append(predict)
+        probabilities.append(prob)
+
+    metric = Metrics()
+    metric.get_metrics(y_test, predictions, probabilities)
 
 
 def predict_with_trained_model(message: str,
@@ -57,7 +61,7 @@ def predict_with_trained_model(message: str,
 
 if __name__ == '__main__':
     # Load dataset
-    df = pd.read_csv('/home/user/Education/Nometa-Bot/docs/questions.csv')
+    df = pd.read_csv('questions.csv')
     # Definition feature and target
     feature = df['text']
     target = df['label']

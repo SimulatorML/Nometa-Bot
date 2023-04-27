@@ -2,7 +2,7 @@ import os
 from aiogram import Bot, types
 from aiogram.dispatcher import Dispatcher
 from aiogram.utils import executor
-from src.utils import сheck_question_pattern, сheck_question_by_tfidf_model
+from src.utils import сheck_question_pattern, сheck_question_with_tfidf_model
 from src.app.constants import GROUP_MESSAGE
 
 BOT_TOKEN = os.getenv("BOT_TOKEN")  # YOUR BOT_TOKEN FROM @BotFather
@@ -10,7 +10,7 @@ bot = Bot(token=BOT_TOKEN)
 dp = Dispatcher(bot)
 
 # TODO: Temporary fix. Swap to select question definition type
-message_check = сheck_question_by_tfidf_model  # checking_tfidf_model, pattern_checking
+message_check = сheck_question_with_tfidf_model  # checking_tfidf_model, pattern_checking
 
 
 class BotMetaMessageChecker:
