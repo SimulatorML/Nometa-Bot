@@ -18,29 +18,32 @@ logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger('MetricsCalculator')
 
 
-class MetricsCalculator:
+class Metrics:
 
     def get_metrics(self,
                     true_labels: np.ndarray,
+                    pred_labels: np.ndarray,
                     pred_scores: np.ndarray,
-                    min_precision: float = 0.95):
+                    min_precision: float = 0.95,
+                    min_specificity: float = 0.95):
         rec_at_pre = self.recall_at_precision(
             true_labels, pred_scores, min_precision
         )
         rec_at_spec = self.recall_at_specificity(
-            true_labels, pred_scores, min_precision
+            true_labels, pred_scores, min_specificity
         )
 
         logger.info(f"recall@precision {min_precision * 100}% : {rec_at_pre}")
-        logger.info(f"recall@specificity {min_precision * 100}% : {rec_at_spec}")
+        logger.info(
+            f"recall@specificity {min_precision * 100}% : {rec_at_spec}")
 
-        self.construction_confusion_matrix(true_labels, pred_scores)
+        self.construction_confusion_matrix(true_labels, pred_labels)
 
     @staticmethod
     def recall_at_precision(
             true_labels: np.ndarray,
             pred_scores: np.ndarray,
-            min_precision: float = 0.95,
+            min_precision: float
     ) -> float:
         """Compute recall at precision
 
@@ -61,7 +64,7 @@ class MetricsCalculator:
     def recall_at_specificity(
             true_labels: np.ndarray,
             pred_scores: np.ndarray,
-            min_specificity: float = 0.95,
+            min_specificity: float
     ) -> float:
         """Compute recall at specificity
 

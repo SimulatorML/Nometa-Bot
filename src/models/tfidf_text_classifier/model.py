@@ -40,6 +40,17 @@ class TfidfTextClassifier:
         predict = int(label[0])
         return predict
 
+    def predict_proba(self, text: str) -> int:
+        """
+        A method that takes a text string as input, preprocesses it,
+        vectorized it, and returns the probability estimates.
+        """
+        text = self._preprocess_text(text)
+        text = self.vectorizer.transform([text])
+        probability = self.clf.predict_proba(text)
+        probability = probability[0][1]
+        return probability
+
     @staticmethod
     def _preprocess_text(text: str) -> str:
         """
