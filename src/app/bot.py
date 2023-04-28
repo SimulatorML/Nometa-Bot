@@ -35,6 +35,6 @@ async def check_message(message: types.Message):
             await message.reply('Это мета-вопрос.')
         else:
             await message.reply('Это обычный вопрос.')
-    elif message.chat.type == 'group':
+    else:
         if message_check(message.text):
             await message.reply(GROUP_MESSAGE, parse_mode='html')
