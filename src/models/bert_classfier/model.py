@@ -8,7 +8,8 @@ from transformers import AutoTokenizer
 
 class BertClassifier():
 
-    def __init__(self, model_path: str = "cointegrated/rubert-tiny",
+    def __init__(self,
+                 model_path: str = "cointegrated/rubert-tiny",
                  max_length: int = 32,
                  padding: str = "max_length") -> None:
 
