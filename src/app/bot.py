@@ -2,9 +2,9 @@ import os
 from aiogram import Bot, types
 from aiogram.dispatcher import Dispatcher
 from aiogram.utils import executor
-from src.app.utils import check_question_with_rubert_clf
-from src.app.utils import check_question_with_tfidf_model
-from src.app.utils import check_question_pattern
+from src.app.utils import (check_question_with_rubert_clf,
+                           check_question_pattern,
+                           check_question_with_tfidf_model)
 from src.app.constants import GROUP_MESSAGE
 
 BOT_TOKEN = os.getenv("BOT_TOKEN")  # YOUR BOT_TOKEN FROM @BotFather
@@ -12,7 +12,8 @@ bot = Bot(token=BOT_TOKEN)
 dp = Dispatcher(bot)
 
 # TODO: Temporary fix. Swap to select question definition type
-message_check = check_question_with_rubert_clf  # checking_tfidf_model, pattern_checking
+# checking_tfidf_model, pattern_checking
+message_check = check_question_with_rubert_clf
 
 
 class BotMetaMessageChecker:
