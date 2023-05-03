@@ -3,6 +3,8 @@ from aiogram import Bot, types
 from aiogram.dispatcher import Dispatcher
 from aiogram.utils import executor
 from src.app.utils import check_question_with_rubert_clf
+from src.app.utils import check_question_with_tfidf_model
+from src.app.utils import check_question_pattern
 from src.app.constants import GROUP_MESSAGE
 
 BOT_TOKEN = os.getenv("BOT_TOKEN")  # YOUR BOT_TOKEN FROM @BotFather
