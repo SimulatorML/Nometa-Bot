@@ -1,6 +1,6 @@
 from src.app.constants import PATTERNS_META_QUESTIONS
 from src.models.tfidf_text_classifier.model import TfidfTextClassifier
-
+from src.models.bert_classfier.model import BertClassifier
 
 def сheck_question_pattern(message: str) -> bool:
     """
@@ -24,7 +24,7 @@ def сheck_question_pattern(message: str) -> bool:
     return False
 
 
-def сheck_question_with_tfidf_model(message: str) -> bool:
+def check_question_with_tfidf_model(message: str) -> bool:
     """
     TODO: add descriptions
     """
@@ -33,6 +33,15 @@ def сheck_question_with_tfidf_model(message: str) -> bool:
         '../src/models/tfidf_text_classifier/artifacts/model.pkl',
         '../src/models/tfidf_text_classifier/artifacts/vectorizer.pkl'
     )
+    prediction = model.predict(message)
+
+    return bool(prediction)
+
+def check_question_with_rubert_clf(message: str) -> bool:
+    """
+    TODO: add descriptions
+    """
+    model = BertClassifier(model_path="./src/models/bert_classifier/artifacts")
     prediction = model.predict(message)
 
     return bool(prediction)

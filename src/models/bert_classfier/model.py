@@ -12,7 +12,7 @@ class BertClassifier():
                  max_length: int = 32,
                  padding: str = "max_length") -> None:
 
-        self.tokenizer = AutoTokenizer.from_pretrained(model_path)
+        self.tokenizer = AutoTokenizer.from_pretrained(model_path, local_files_only=True)
         self.model = AutoModelForSequenceClassification.from_pretrained(
             model_path,
             num_labels=2,
