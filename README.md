@@ -28,14 +28,16 @@ Choose a launch option and continue with the steps
 
 3) install python version: 3.8
 4) ```pip install -r requirements.txt```
+5) install PyTorch
+6) ```pip3 install torch torchvision torchaudio --extra-index-url https://download.pytorch.org/whl/cpu``
 
-5) Add a variable to your environment on ...
+7) Add a variable to your environment on ...
 
     linux: `export BOT_TOKEN=<your_token>`
-    
+
     windows (cmd): `setx BOT_TOKEN "<your_token>"`
 
-6) run `python static/start_bot.py`
+8) run `python static/start_bot.py`
 
 </details>
 
@@ -48,9 +50,3 @@ from the root of the repository run the commands
 </details>
 
 After launching the bot, add it to the chat and allow it to read messages
-
-
-
-
-
-

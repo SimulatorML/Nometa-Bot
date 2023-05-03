@@ -7,3 +7,4 @@ seaborn~=0.12.2
 telethon~=1.28.5
 aiogram==2.25.1
 dvc==2.55.0
+transformers==4.28.1
