@@ -2,7 +2,7 @@ from src.app.constants import PATTERNS_META_QUESTIONS
 from src.models.tfidf_text_classifier.model import TfidfTextClassifier
 from src.models.bert_classfier.model import BertClassifier
 
-def сheck_question_pattern(message: str) -> bool:
+def check_question_pattern(message: str) -> bool:
     """
     Функция проверяет, является ли сообщение мета-вопросом.
 
@@ -41,7 +41,7 @@ def check_question_with_rubert_clf(message: str) -> bool:
     """
     TODO: add descriptions
     """
-    model = BertClassifier(model_path="./src/models/bert_classifier/artifacts")
+    model = BertClassifier(model_path="./src/models/bert_classfier/artifacts")
     prediction = model.predict(message)
 
     return bool(prediction)
