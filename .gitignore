@@ -104,3 +104,5 @@ ENV/
 # IDE settings
 .vscode/
 .idea/
+
+src/models/bert_classfier/artifacts
