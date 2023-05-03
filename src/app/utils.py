@@ -41,7 +41,7 @@ def check_question_with_rubert_clf(message: str) -> bool:
     """
     TODO: add descriptions
     """
-    model = BertClassifier(model_path="./src/models/bert_classfier/artifacts")
+    model = BertClassifier(model_path="../src/models/bert_classfier/artifacts")
     prediction = model.predict(message)
 
     return bool(prediction)
