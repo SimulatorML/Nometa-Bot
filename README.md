@@ -29,7 +29,7 @@ Choose a launch option and continue with the steps
 3) install python version: 3.8
 4) ```pip install -r requirements.txt```
 5) install PyTorch
-6) ```pip3 install torch torchvision torchaudio --extra-index-url https://download.pytorch.org/whl/cpu``
+6) `pip3 install torch torchvision torchaudio --extra-index-url https://download.pytorch.org/whl/cpu`
 
 7) Add a variable to your environment on ...
 
