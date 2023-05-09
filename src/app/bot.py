@@ -19,6 +19,9 @@ message_check = check_question_with_rubert_clf
 
 
 class BotMetaMessageChecker:
+    """
+    TODO: add descriptions
+    """
     def start(self):
         executor.start_polling(dp, skip_updates=True)
 
@@ -27,7 +30,8 @@ class BotMetaMessageChecker:
 async def check_message(message: types.Message):
     """
     Функция обрабатывает сообщения пользователей.
-    В личном чате на каждое сообщение отвечает классом, к которому оно относится:
+    В личном чате на каждое сообщение отвечает классом,
+    к которому оно относится:
         - Сообщение без вопроса
         - Мета-вопрос
         - Обычный вопрос
@@ -40,4 +44,6 @@ async def check_message(message: types.Message):
             await message.reply('Это обычный вопрос.')
     else:
         if message_check(message.text):
-            await message.reply(random.choice(GROUP_MESSAGES), parse_mode='html')
+            await message.reply(
+                random.choice(GROUP_MESSAGES), parse_mode='html'
+            )

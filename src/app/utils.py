@@ -2,6 +2,7 @@ from src.app.constants import PATTERNS_META_QUESTIONS
 from src.models.tfidf_text_classifier.model import TfidfTextClassifier
 from src.models.bert_classfier.model import BertClassifier
 
+
 def check_question_pattern(message: str) -> bool:
     """
     Функция проверяет, является ли сообщение мета-вопросом.
@@ -36,6 +37,7 @@ def check_question_with_tfidf_model(message: str) -> bool:
     prediction = model.predict(message)
 
     return bool(prediction)
+
 
 def check_question_with_rubert_clf(message: str) -> bool:
     """

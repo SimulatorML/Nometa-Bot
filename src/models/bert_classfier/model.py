@@ -9,15 +9,16 @@ from transformers import AutoTokenizer
 
 class BertClassifier():
     """
-    A classifier based on BERT (Bidirectional Encoder Representations from Transformers) model.
-    It uses a pre-trained BERT model for sequence classification and fine-tunes it on a specific task.
-    The class provides methods for making predictions and computing probabilities.
+    A classifier based on BERT (Bidirectional Encoder Representations from
+    Transformers) model. It uses a pre-trained BERT model for sequence
+    classification and fine-tunes it on a specific task. The class provides
+    methods for making predictions and computing probabilities.
 
     Args:
         model_path (str): Path to the pre-trained BERT model.
         max_length (int): Maximum sequence length for input text. Default is 32.
-        padding (str): Padding strategy for the input text. Default is "max_length".
-        device (str): Device to run the model on. Default is "cpu".
+        padding (str): Padding strategy for the input text. Default is
+        "max_length" device (str): Device to run the model on. Default is "cpu".
 
     Attributes:
         tokenizer: BERT tokenizer for encoding input text.
@@ -37,8 +38,10 @@ class BertClassifier():
 
         Args:
             model_path (str): Path to the pre-trained BERT model.
-            max_length (int): Maximum sequence length for input text. Default is 32.
-            padding (str): Padding strategy for the input text. Default is "max_length".
+            max_length (int): Maximum sequence length for input text.
+            Default is 32.
+            padding (str): Padding strategy for the input text.
+            Default is "max_length".
             device (str): Device to run the model on. Default is "cpu".
         """
 
@@ -91,13 +94,15 @@ class BertClassifier():
 
     def _encode(self, text) -> Tuple[List[int], List[int]]:
         """
-        Encodes the text using the tokenizer and returns the encoded input and attention mask.
+        Encodes the text using the tokenizer and returns the encoded input and
+        attention mask.
 
         Args:
             text (str): The input text to encode.
 
         Returns:
-            torch.Tensor, torch.Tensor: The encoded input and attention mask as PyTorch tensors.
+            torch.Tensor, torch.Tensor: The encoded input and attention mask as
+            PyTorch tensors.
         """
         ids = []
         attention_mask = []

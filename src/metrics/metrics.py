@@ -1,8 +1,8 @@
-from typing import Any
-from typing import Tuple
+import logging
 
 import numpy as np
-import logging
+from numpy import ndarray
+from typing import Any, Tuple
 
 from sklearn.metrics import (
     precision_recall_curve,
@@ -19,6 +19,9 @@ logger = logging.getLogger('MetricsCalculator')
 
 
 class Metrics:
+    """
+    # TODO : add descriptions
+    """
 
     def get_metrics(self,
                     true_labels: np.ndarray,
@@ -26,6 +29,15 @@ class Metrics:
                     pred_scores: np.ndarray,
                     min_precision: float = 0.95,
                     min_specificity: float = 0.95):
+        """
+        TODO: add descriptions
+        :param true_labels:
+        :param pred_labels:
+        :param pred_scores:
+        :param min_precision:
+        :param min_specificity:
+        :return:
+        """
         rec_at_pre = self.recall_at_precision(
             true_labels, pred_scores, min_precision
         )
@@ -50,7 +62,8 @@ class Metrics:
         Args:
             true_labels (np.ndarray): True labels
             pred_scores (np.ndarray): Target scores
-            min_precision (float, optional): Min precision for recall. Defaults to 0.95.
+            min_precision (float, optional): Min precision for recall.
+            Defaults to 0.95.
 
         Returns:
             float: Metric value
@@ -71,7 +84,8 @@ class Metrics:
         Args:
             true_labels (np.ndarray): True labels
             pred_scores (np.ndarray): Target scores
-            min_specificity (float, optional): Min specificity for recall. Defaults to 0.95.
+            min_specificity (float, optional): Min specificity for recall.
+            Defaults to 0.95.
 
         Returns:
             float: Metric value
@@ -84,7 +98,7 @@ class Metrics:
 
     @staticmethod
     def curves(true_labels: np.ndarray, pred_scores: np.ndarray) -> Tuple[
-        np.ndarray]:
+        ndarray, ndarray]:
         """Return ROC and FPR curves
 
         Args:
@@ -105,10 +119,12 @@ class Metrics:
             true_labels, pred_scores)
         pr_curve = fig2numpy(pr_curve.figure_)
 
-        roc_curve = RocCurveDisplay.from_predictions(true_labels, pred_scores)
-        roc_curve = fig2numpy(roc_curve.figure_)
+        current_roc_curve = RocCurveDisplay.from_predictions(
+            true_labels, pred_scores
+        )
+        current_roc_curve = fig2numpy(current_roc_curve.figure_)
 
-        return pr_curve, roc_curve
+        return pr_curve, current_roc_curve
 
     @staticmethod
     def construction_confusion_matrix(
@@ -120,8 +136,8 @@ class Metrics:
             true_labels (np.ndarray): True labels
             predictions_labels (np.ndarray): Target scores
         """
-        cm = confusion_matrix(true_labels, predictions_labels)
-        sns.heatmap(cm, annot=True, cmap='Blues', fmt='g')
+        conf_matrix = confusion_matrix(true_labels, predictions_labels)
+        sns.heatmap(conf_matrix, annot=True, cmap='Blues', fmt='g')
         plt.xlabel('Predicted')
         plt.ylabel('Actual')
         plt.show()

@@ -1,0 +1,14 @@
+[MASTER]
+disable=
+    C0114,
+    W0613,
+    W1203,
+    R0913
+extension-pkg-whitelist=numpy,torch,sklearn
+good-names=i,j,k,ex,Run,_,X,y,df,x1,x2
+max-line-length=80
+
+[TYPECHECK]
+ignored-modules=numpy,torch,sklearn
+ignored-classes=numpy,torch,sklearn
+generated-members=numpy.*,torch.*
