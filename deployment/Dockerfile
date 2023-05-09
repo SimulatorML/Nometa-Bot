@@ -6,7 +6,8 @@ COPY /requirements.txt /requirements.txt
 
 RUN apt update && \
     pip install --upgrade pip \
-    && pip install -r requirements.txt
+    && pip install -r requirements.txt \
+    && pip install torch torchvision torchaudio --extra-index-url https://download.pytorch.org/whl/cpu
 
 COPY /src ./src
 COPY /static ./static
