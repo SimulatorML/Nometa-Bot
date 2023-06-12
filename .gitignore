@@ -109,3 +109,4 @@ src/models/bert_classfier/artifacts
 
 # .csv
 *.csv
+/data
