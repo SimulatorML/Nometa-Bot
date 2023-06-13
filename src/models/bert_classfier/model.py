@@ -2,7 +2,6 @@ from typing import Tuple, List
 import torch
 
 
-import numpy as np
 from transformers import AutoModelForSequenceClassification
 from transformers import AutoTokenizer
 
@@ -72,7 +71,7 @@ class BertClassifier():
         with torch.no_grad():
             output = self.model(ids, token_type_ids=None, attention_mask=mask)
         prediction = (output.logits.cpu().numpy())[:, 1].item()
-        if prediction >= 0.8:
+        if prediction >= 1.6:
             prediction = 1
         else:
             prediction = 0
