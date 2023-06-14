@@ -72,6 +72,7 @@ class BertClassifier():
             output = self.model(ids, token_type_ids=None, attention_mask=mask)
         prediction = (output.logits.cpu().numpy())[:, 1].item()
         if prediction >= 0.9:
+
             prediction = 1
         else:
             prediction = 0
