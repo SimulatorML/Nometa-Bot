@@ -71,7 +71,8 @@ class BertClassifier():
         with torch.no_grad():
             output = self.model(ids, token_type_ids=None, attention_mask=mask)
         prediction = (output.logits.cpu().numpy())[:, 1].item()
-        if prediction >= 1.6:
+        if prediction >= 0.9:
+
             prediction = 1
         else:
             prediction = 0
