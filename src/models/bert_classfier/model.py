@@ -31,7 +31,8 @@ class BertClassifier():
                  model_path: str = "cointegrated/rubert-tiny",
                  max_length: int = 32,
                  padding: str = "max_length",
-                 device: str = "cpu") -> None:
+                 device: str = "cpu",
+                 threshold: float = 0.9) -> None:
         """
         Initializes the BertClassifier.
 
@@ -54,6 +55,7 @@ class BertClassifier():
         self.max_length = max_length
         self.padding = padding
         self.device = device
+        self.threshold = threshold
 
     def predict(self, text: str) -> int:
         """
@@ -71,7 +73,7 @@ class BertClassifier():
         with torch.no_grad():
             output = self.model(ids, token_type_ids=None, attention_mask=mask)
         prediction = (output.logits.cpu().numpy())[:, 1].item()
-        if prediction >= 0.9:
+        if prediction >= self.threshold:
 
             prediction = 1
         else:
