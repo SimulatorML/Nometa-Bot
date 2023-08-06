@@ -10,7 +10,7 @@ from src.app.constants import GROUP_MESSAGES
 
 
 BOT_TOKEN = os.getenv("BOT_TOKEN")  # YOUR BOT_TOKEN FROM @BotFather
-CHANNEL_ID = os.getenv("DATASET_CHANNEL") #CHANNEL_ID FOR COLLECTING DATA
+CHANNEL_ID = os.getenv("CHANNEL_ID") #CHANNEL_ID FOR COLLECTING DATA
 bot = Bot(token=BOT_TOKEN)
 dp = Dispatcher(bot)
 
