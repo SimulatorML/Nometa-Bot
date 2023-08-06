@@ -10,6 +10,7 @@ from src.app.constants import GROUP_MESSAGES
 
 
 BOT_TOKEN = os.getenv("BOT_TOKEN")  # YOUR BOT_TOKEN FROM @BotFather
+CHANNEL_ID = os.getenv("DATASET_CHANNEL") #CHANNEL_ID FOR COLLECTING DATA
 bot = Bot(token=BOT_TOKEN)
 dp = Dispatcher(bot)
 
@@ -37,13 +38,16 @@ async def check_message(message: types.Message):
         - Обычный вопрос
     В групповом чате отвечает только на мета-вопросы.
     """
+    prediction, info = message_check(message.text)
     if message.chat.type == 'private':
-        if message_check(message.text):
-            await message.reply('Это мета-вопрос.')
+        if prediction:
+            await message.reply(f'Это мета-вопрос.\n{info}')
         else:
-            await message.reply('Это обычный вопрос.')
+            await message.reply(f'Это обычный вопрос/обычное сообщение.\n{info}')
     else:
-        if message_check(message.text):
+        if prediction:
             await message.reply(
                 random.choice(GROUP_MESSAGES), parse_mode='html'
             )
+
+    await bot.send_message(chat_id=CHANNEL_ID, text=f"Message from user @{message.from_user.username}\n {info}")
