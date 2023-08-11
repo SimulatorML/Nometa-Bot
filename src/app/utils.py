@@ -2,7 +2,7 @@ from typing import Tuple
 
 from src.app.constants import PATTERNS_META_QUESTIONS
 from src.models.tfidf_text_classifier.model import TfidfTextClassifier
-from src.models.bert_classfier.model import BertClassifier  # Updated import name
+from src.models.bert_classifier.model import BertClassifier  # Updated import name
 
 def check_question_pattern(message: str) -> bool:
     """
