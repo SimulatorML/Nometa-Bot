@@ -1,23 +1,18 @@
 from typing import Tuple, List
 import torch
-
-
 from transformers import AutoModelForSequenceClassification
 from transformers import AutoTokenizer
 
-
-class BertClassifier():
+class BertClassifier:
     """
-    A classifier based on BERT (Bidirectional Encoder Representations from
-    Transformers) model. It uses a pre-trained BERT model for sequence
-    classification and fine-tunes it on a specific task. The class provides
-    methods for making predictions and computing probabilities.
+    A classifier based on the BERT (Bidirectional Encoder Representations from Transformers) model.
 
     Args:
         model_path (str): Path to the pre-trained BERT model.
         max_length (int): Maximum sequence length for input text. Default is 32.
-        padding (str): Padding strategy for the input text. Default is
-        "max_length" device (str): Device to run the model on. Default is "cpu".
+        padding (str): Padding strategy for the input text. Default is "max_length".
+        device (str): Device to run the model on. Default is "cpu".
+        threshold (float): Threshold for prediction. Default is 0.9.
 
     Attributes:
         tokenizer: BERT tokenizer for encoding input text.
@@ -25,6 +20,7 @@ class BertClassifier():
         max_length (int): Maximum sequence length for input text.
         padding (str): Padding strategy for the input text.
         device (str): Device to run the model on.
+        threshold (float): Threshold for prediction.
     """
 
     def __init__(self,
@@ -38,11 +34,10 @@ class BertClassifier():
 
         Args:
             model_path (str): Path to the pre-trained BERT model.
-            max_length (int): Maximum sequence length for input text.
-            Default is 32.
-            padding (str): Padding strategy for the input text.
-            Default is "max_length".
+            max_length (int): Maximum sequence length for input text. Default is 32.
+            padding (str): Padding strategy for the input text. Default is "max_length".
             device (str): Device to run the model on. Default is "cpu".
+            threshold (float): Threshold for prediction. Default is 0.9.
         """
 
         self.tokenizer = AutoTokenizer.from_pretrained(
@@ -74,7 +69,6 @@ class BertClassifier():
             output = self.model(ids, token_type_ids=None, attention_mask=mask)
         prediction = (output.logits.cpu().numpy())[:, 1].item()
         if prediction >= self.threshold:
-
             prediction = 1
         else:
             prediction = 0
@@ -98,17 +92,15 @@ class BertClassifier():
         prediction = output.logits.cpu().numpy()[:, 1].item()
         return prediction
 
-    def _encode(self, text) -> Tuple[List[int], List[int]]:
+    def _encode(self, text: str) -> Tuple[List[int], List[int]]:
         """
-        Encodes the text using the tokenizer and returns the encoded input and
-        attention mask.
+        Encodes the text using the tokenizer and returns the encoded input and attention mask.
 
         Args:
             text (str): The input text to encode.
 
         Returns:
-            torch.Tensor, torch.Tensor: The encoded input and attention mask as
-            PyTorch tensors.
+            torch.Tensor, torch.Tensor: The encoded input and attention mask as PyTorch tensors.
         """
         ids = []
         attention_mask = []
