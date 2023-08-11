@@ -5,15 +5,22 @@ from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.linear_model import LogisticRegression
 from sklearn.pipeline import Pipeline
 
-
 class TfidfTextClassifier:
     """
-    The TfidfTextClassifier class is designed for text classification using
-    TfidfVectorizer and LogisticRegression algorithms. This class has methods
-    for model training, saving and loading the model, and making predictions.
+    The TfidfTextClassifier class is designed for text classification using TfidfVectorizer
+    and LogisticRegression algorithms. This class has methods for model training, saving
+    and loading the model, and making predictions.
     """
 
     def __init__(self, estimator=LogisticRegression()):
+        """
+        Initializes the TfidfTextClassifier.
+
+        Parameters
+        ----------
+        estimator : estimator, optional
+            Estimator to use for classification, by default LogisticRegression().
+        """
         self.clf = estimator
         self.vectorizer = TfidfVectorizer(ngram_range=(2, 3))
         self.pipeline = Pipeline(
@@ -21,8 +28,14 @@ class TfidfTextClassifier:
 
     def fit(self, feature: pd.Series, target: pd.Series):
         """
-        A method that takes a feature and a target Series as input and trains
-        the model using the LogisticRegression algorithm.
+        Trains the model using the LogisticRegression algorithm.
+
+        Parameters
+        ----------
+        feature : pd.Series
+            Input feature data.
+        target : pd.Series
+            Target labels for the classification.
         """
         feature = feature.astype('U').apply(self._preprocess_text)
         target = target.astype('int')
@@ -31,8 +44,17 @@ class TfidfTextClassifier:
 
     def predict(self, text: str) -> int:
         """
-        A method that takes a text string as input, preprocesses it,
-        vectorized it, and returns the predicted label as an integer.
+        Makes a prediction for the input text.
+
+        Parameters
+        ----------
+        text : str
+            Input text for prediction.
+
+        Returns
+        -------
+        int
+            Predicted label as an integer.
         """
         text = self._preprocess_text(text)
         text = self.vectorizer.transform([text])
@@ -42,8 +64,17 @@ class TfidfTextClassifier:
 
     def predict_proba(self, text: str) -> int:
         """
-        A method that takes a text string as input, preprocesses it,
-        vectorized it, and returns the probability estimates.
+        Computes the probability estimates for the input text.
+
+        Parameters
+        ----------
+        text : str
+            Input text for prediction.
+
+        Returns
+        -------
+        float
+            Probability estimate for the positive class.
         """
         text = self._preprocess_text(text)
         text = self.vectorizer.transform([text])
@@ -54,8 +85,17 @@ class TfidfTextClassifier:
     @staticmethod
     def _preprocess_text(text: str) -> str:
         """
-        A static method that takes a text string as input and returns a
-        preprocessed version of it.
+        Preprocesses the input text.
+
+        Parameters
+        ----------
+        text : str
+            Input text to preprocess.
+
+        Returns
+        -------
+        str
+            Preprocessed version of the input text.
         """
         text = re.sub(r'[^А-Яа-яёЁ]', ' ', text.lower())
         return text
@@ -64,8 +104,14 @@ class TfidfTextClassifier:
                    path_to_model: str = 'model.pkl',
                    path_to_vectorizer: str = 'vectorizer.pkl'):
         """
-        A method that saves the trained model and vectorizer
-        to the specified file paths.
+        Saves the trained model and vectorizer to specified file paths.
+
+        Parameters
+        ----------
+        path_to_model : str, optional
+            Path to save the model, by default 'model.pkl'.
+        path_to_vectorizer : str, optional
+            Path to save the vectorizer, by default 'vectorizer.pkl'.
         """
         joblib.dump(self.clf, path_to_model)
         joblib.dump(self.vectorizer, path_to_vectorizer)
@@ -74,8 +120,14 @@ class TfidfTextClassifier:
                    path_to_model: str = 'model.pkl',
                    path_to_vectorizer: str = 'vectorizer.pkl'):
         """
-        A method that loads the trained model and vectorizer
-        from the specified file paths.
+        Loads the trained model and vectorizer from specified file paths.
+
+        Parameters
+        ----------
+        path_to_model : str, optional
+            Path to load the model, by default 'model.pkl'.
+        path_to_vectorizer : str, optional
+            Path to load the vectorizer, by default 'vectorizer.pkl'.
         """
         self.clf = joblib.load(path_to_model)
         self.vectorizer = joblib.load(path_to_vectorizer)
