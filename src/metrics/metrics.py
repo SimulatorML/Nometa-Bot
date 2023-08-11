@@ -20,7 +20,7 @@ logger = logging.getLogger('MetricsCalculator')
 
 class Metrics:
     """
-    # TODO : add descriptions
+    A class to calculate various metrics and generate visualizations for model evaluation.
     """
 
     def get_metrics(self,
@@ -30,13 +30,20 @@ class Metrics:
                     min_precision: float = 0.95,
                     min_specificity: float = 0.95):
         """
-        TODO: add descriptions
-        :param true_labels:
-        :param pred_labels:
-        :param pred_scores:
-        :param min_precision:
-        :param min_specificity:
-        :return:
+        Calculate and display evaluation metrics based on prediction results.
+
+        Parameters
+        ----------
+        true_labels : np.ndarray
+            True labels.
+        pred_labels : np.ndarray
+            Predicted labels.
+        pred_scores : np.ndarray
+            Predicted scores.
+        min_precision : float, optional
+            Minimum precision value for calculating recall, by default 0.95.
+        min_specificity : float, optional
+            Minimum specificity value for calculating recall, by default 0.95.
         """
         rec_at_pre = self.recall_at_precision(
             true_labels, pred_scores, min_precision
@@ -57,16 +64,22 @@ class Metrics:
             pred_scores: np.ndarray,
             min_precision: float
     ) -> float:
-        """Compute recall at precision
+        """
+        Compute recall at a given precision.
 
-        Args:
-            true_labels (np.ndarray): True labels
-            pred_scores (np.ndarray): Target scores
-            min_precision (float, optional): Min precision for recall.
-            Defaults to 0.95.
+        Parameters
+        ----------
+        true_labels : np.ndarray
+            True labels.
+        pred_scores : np.ndarray
+            Predicted scores.
+        min_precision : float
+            Minimum precision value.
 
-        Returns:
-            float: Metric value
+        Returns
+        -------
+        float
+            Metric value.
         """
 
         precision, recall, _ = precision_recall_curve(true_labels, pred_scores)
@@ -79,16 +92,22 @@ class Metrics:
             pred_scores: np.ndarray,
             min_specificity: float
     ) -> float:
-        """Compute recall at specificity
+        """
+        Compute recall at a given specificity.
 
-        Args:
-            true_labels (np.ndarray): True labels
-            pred_scores (np.ndarray): Target scores
-            min_specificity (float, optional): Min specificity for recall.
-            Defaults to 0.95.
+        Parameters
+        ----------
+        true_labels : np.ndarray
+            True labels.
+        pred_scores : np.ndarray
+            Predicted scores.
+        min_specificity : float
+            Minimum specificity value.
 
-        Returns:
-            float: Metric value
+        Returns
+        -------
+        float
+            Metric value.
         """
 
         fpr, tpr, _ = roc_curve(true_labels, pred_scores)
@@ -99,14 +118,20 @@ class Metrics:
     @staticmethod
     def curves(true_labels: np.ndarray, pred_scores: np.ndarray) -> Tuple[
         ndarray, ndarray]:
-        """Return ROC and FPR curves
+        """
+        Return ROC and FPR curves as numpy arrays.
 
-        Args:
-            true_labels (np.ndarray): True labels
-            pred_scores (np.ndarray): Target scores
+        Parameters
+        ----------
+        true_labels : np.ndarray
+            True labels.
+        pred_scores : np.ndarray
+            Predicted scores.
 
-        Returns:
-            Tuple[np.ndarray]: ROC and FPR curves
+        Returns
+        -------
+        Tuple[np.ndarray]
+            ROC and FPR curves as numpy arrays.
         """
 
         def fig2numpy(fig: Any) -> np.ndarray:
@@ -131,10 +156,14 @@ class Metrics:
             true_labels: np.ndarray,
             predictions_labels: np.ndarray):
         """
-        Outputs a confusion matrix
-        Args:
-            true_labels (np.ndarray): True labels
-            predictions_labels (np.ndarray): Target scores
+        Construct and display a confusion matrix.
+
+        Parameters
+        ----------
+        true_labels : np.ndarray
+            True labels.
+        predictions_labels : np.ndarray
+            Predicted labels.
         """
         conf_matrix = confusion_matrix(true_labels, predictions_labels)
         sns.heatmap(conf_matrix, annot=True, cmap='Blues', fmt='g')
