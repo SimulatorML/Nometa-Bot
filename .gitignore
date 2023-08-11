@@ -105,7 +105,7 @@ ENV/
 .vscode/
 .idea/
 
-src/models/bert_classfier/artifacts
+src/models/bert_classifier/artifacts
 
 # .csv
 *.csv
