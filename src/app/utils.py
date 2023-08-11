@@ -2,23 +2,22 @@ from typing import Tuple
 
 from src.app.constants import PATTERNS_META_QUESTIONS
 from src.models.tfidf_text_classifier.model import TfidfTextClassifier
-from src.models.bert_classfier.model import BertClassifier
-
+from src.models.bert_classifier.model import BertClassifier  # Updated import name
 
 def check_question_pattern(message: str) -> bool:
     """
-    Функция проверяет, является ли сообщение мета-вопросом.
+    Check if a message is a meta-question.
 
     Parameters
     ----------
     message : str
-        Сообщенние от пользователя.
+        User's message.
 
     Returns
     -------
     bool
-        True, если сообщение - мета вопрос.
-        False, если сообщение - обычный вопрос.
+        True if the message is a meta-question.
+        False if the message is a regular question.
     """
     message = message.lower()
     for meta_question in PATTERNS_META_QUESTIONS:
@@ -26,10 +25,19 @@ def check_question_pattern(message: str) -> bool:
             return True
     return False
 
-
 def check_question_with_tfidf_model(message: str) -> bool:
     """
-    TODO: add descriptions
+    Check question using the TF-IDF model.
+
+    Parameters
+    ----------
+    message : str
+        User's message.
+
+    Returns
+    -------
+    bool
+        True if the message is classified as a question, otherwise False.
     """
     model = TfidfTextClassifier()
     model.load_model(
@@ -40,13 +48,24 @@ def check_question_with_tfidf_model(message: str) -> bool:
 
     return bool(prediction)
 
-
 def check_question_with_rubert_clf(message: str) -> Tuple[bool, str]:
     """
-    TODO: add descriptions
+    Check question using the RuBERT classifier.
+
+    Parameters
+    ----------
+    message : str
+        User's message.
+
+    Returns
+    -------
+    Tuple[bool, str]
+        A tuple containing:
+        - A boolean indicating if the message is a question or not.
+        - Information about the prediction and details of the classification.
     """
     if "?" in message and len(message) > 20:
-        model = BertClassifier(model_path="../src/models/bert_classfier/artifacts")
+        model = BertClassifier(model_path="../src/models/bert_classifier/artifacts")  # Updated path
         prediction = model.predict(message)
         score = model.predict_proba(message)
         info = f"""
@@ -56,5 +75,5 @@ Logit: {score}\n
 Current threshold: {model.threshold}"""
     else:
         prediction = 0
-        info = f"This is message: {message} is not a question"
+        info = f"This message: {message} is not a question"
     return bool(prediction), info

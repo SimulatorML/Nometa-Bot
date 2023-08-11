@@ -8,9 +8,11 @@ from src.app.utils import (check_question_with_rubert_clf,
                            check_question_with_tfidf_model)
 from src.app.constants import GROUP_MESSAGES
 
-
+# Load your Bot Token and Channel ID from environment variables
 BOT_TOKEN = os.getenv("BOT_TOKEN")  # YOUR BOT_TOKEN FROM @BotFather
-CHANNEL_ID = os.getenv("CHANNEL_ID") #CHANNEL_ID FOR COLLECTING DATA
+CHANNEL_ID = os.getenv("CHANNEL_ID")  # CHANNEL_ID FOR COLLECTING DATA
+
+# Create a Bot instance and a Dispatcher
 bot = Bot(token=BOT_TOKEN)
 dp = Dispatcher(bot)
 
@@ -18,32 +20,40 @@ dp = Dispatcher(bot)
 # checking_tfidf_model, pattern_checking
 message_check = check_question_with_rubert_clf
 
-
 class BotMetaMessageChecker:
     """
-    TODO: add descriptions
+    A class to manage message checking and handling for the bot.
     """
     def start(self):
+        """
+        Start polling for new messages using the Dispatcher.
+        """
         executor.start_polling(dp, skip_updates=True)
-
 
 @dp.message_handler()
 async def check_message(message: types.Message):
     """
-    Функция обрабатывает сообщения пользователей.
-    В личном чате на каждое сообщение отвечает классом,
-    к которому оно относится:
-        - Сообщение без вопроса
-        - Мета-вопрос
-        - Обычный вопрос
-    В групповом чате отвечает только на мета-вопросы.
+    Process user messages and respond accordingly.
+
+    In a private chat, respond based on the type of question:
+        - Non-question message
+        - Meta-question
+        - Regular question
+
+    In a group chat, only respond to meta-questions.
+
+    Parameters
+    ----------
+    message : types.Message
+        The incoming message to process.
     """
     prediction, info = message_check(message.text)
+
     if message.chat.type == 'private':
         if prediction:
-            await message.reply(f'Это мета-вопрос.\n{info}')
+            await message.reply(f'This is a meta-question.\n{info}')
         else:
-            await message.reply(f'Это обычный вопрос/обычное сообщение.\n{info}')
+            await message.reply(f'This is a regular question/normal message.\n{info}')
     else:
         if prediction:
             await message.reply(
