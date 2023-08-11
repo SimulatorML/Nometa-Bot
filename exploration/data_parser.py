@@ -6,12 +6,24 @@ from typing import List
 import pandas as pd
 from telethon import TelegramClient
 
-API_ID = os.getenv("API_ID") # YOUR API_ID FROM https://my.telegram.org/apps
-API_HASH = os.getenv("API_HASH") # YOUR API_HASH FROM https://my.telegram.org/apps
+API_ID = os.getenv("API_ID")  # YOUR API_ID FROM https://my.telegram.org/apps
+API_HASH = os.getenv("API_HASH")  # YOUR API_HASH FROM https://my.telegram.org/apps
 
 
-def find_nometa_replies(data: dict):
-    """Finds all nometa_replies in json-like data"""
+def find_nometa_replies(data: dict) -> List[int]:
+    """
+    Finds all replies to messages containing 'nometa' in json-like data.
+
+    Parameters
+    ----------
+    data : dict
+        JSON-like data containing chat messages.
+
+    Returns
+    -------
+    List[int]
+        List of message IDs that are replies to 'nometa' messages.
+    """
     id_messages_with_nometa = []
     for info_message in data['messages']:
         message = str(info_message['text'])
@@ -26,7 +38,18 @@ def find_nometa_replies(data: dict):
 
 
 def exctract_nometa(data: dict, id_messages_with_nometa: List[int], path: str = 'data.csv'):
-    """Exctract all questions and converts it to .cvs"""
+    """
+    Extracts all questions and converts them to a .csv file.
+
+    Parameters
+    ----------
+    data : dict
+        JSON-like data containing chat messages.
+    id_messages_with_nometa : List[int]
+        List of message IDs that are replies to 'nometa' messages.
+    path : str, optional
+        Path for saving the CSV file, by default 'data.csv'.
+    """
     messages_with_nometa = pd.DataFrame(columns=['text'])
     for info_message in data['messages']:
         if info_message['id'] in id_messages_with_nometa:
@@ -40,7 +63,16 @@ def exctract_nometa(data: dict, id_messages_with_nometa: List[int], path: str = 
 
 
 def parse_json(source: List[str] = None, path: str = 'data.csv'):
-    """Parse data from telegram chats using api/json"""
+    """
+    Parses data from telegram chats using JSON files and converts to CSV.
+
+    Parameters
+    ----------
+    source : List[str], optional
+        List of paths to JSON files, by default None.
+    path : str, optional
+        Path for saving the CSV file, by default 'data.csv'.
+    """
     for file in source:
         with open(file, encoding="utf-8") as f:
             data = json.load(f)
@@ -51,11 +83,28 @@ def parse_json(source: List[str] = None, path: str = 'data.csv'):
 
 async def parse_api(source: List[str],
                     api_id: int,
-                    api_hash=str,
+                    api_hash: str,
                     path: str = "data.csv",
                     word: str = "nometa",
                     limit: int = 10000000):
-    """Parses data from telegram chats using TG API"""
+    """
+    Parses data from telegram chats using TG API and converts to CSV.
+
+    Parameters
+    ----------
+    source : List[str]
+        List of chat IDs.
+    api_id : int
+        Your Telegram API ID.
+    api_hash : str
+        Your Telegram API hash.
+    path : str, optional
+        Path for saving the CSV file, by default 'data.csv'.
+    word : str, optional
+        Keyword to search for in messages, by default 'nometa'.
+    limit : int, optional
+        Maximum number of messages to retrieve, by default 10000000.
+    """
     meta_messages_ids = []
     meta_messages = []
     async with TelegramClient('my', api_id, api_hash) as client:
