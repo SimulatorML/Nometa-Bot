@@ -64,7 +64,7 @@ def check_question_with_rubert_clf(message: str) -> Tuple[bool, str]:
         - A boolean indicating if the message is a question or not.
         - Information about the prediction and details of the classification.
     """
-    if "?" in message and len(message) > 20:
+    if "?" in message and len(message) > 10:
         model = BertClassifier(model_path="../src/models/bert_classifier/artifacts")  # Updated path
         prediction = model.predict(message)
         score = model.predict_proba(message)
