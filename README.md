@@ -19,7 +19,7 @@ Developed by students of the [Simulator ML (Karpov.Courses)](https://karpov.cour
 
 ### Launch
 
-1) `git clone https://github.com/uberkinder/Nometa-Bot.git`
+1) `git clone https://github.com/SimulatorML/Nometa-Bot.git`
 2) Create a telegram bot and get a token through https://t.me/BotFather
 
 Choose a launch option and continue with the steps
