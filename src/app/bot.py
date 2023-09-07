@@ -12,8 +12,10 @@ from src.app.constants import PRIVATE_MESSAGES_NEG
 
 # Load your Bot Token and Channel ID from environment variables
 BOT_TOKEN = os.getenv("BOT_TOKEN")  # YOUR BOT_TOKEN FROM @BotFather
-CHANNEL_ID = os.getenv("CHANNEL_ID")  # CHANNEL_ID FOR COLLECTING DATA
-
+try:
+    CHANNEL_ID = os.getenv("CHANNEL_ID")  # CHANNEL_ID FOR COLLECTING DATA
+except:
+    CHANNEL_ID = None
 # Create a Bot instance and a Dispatcher
 bot = Bot(token=BOT_TOKEN)
 dp = Dispatcher(bot)
@@ -81,8 +83,9 @@ async def check_message(message: types.Message):
             await message.reply(
                 random.choice(GROUP_MESSAGES), parse_mode='html'
             )
+    if CHANNEL_ID:
+        await bot.send_message(chat_id=CHANNEL_ID, text=f"Message from user @{message.from_user.username}\n {info}")
 
-    await bot.send_message(chat_id=CHANNEL_ID, text=f"Message from user @{message.from_user.username}\n {info}")
 
 # Instantiate the BotMetaMessageChecker class and start polling
 if __name__ == '__main__':
